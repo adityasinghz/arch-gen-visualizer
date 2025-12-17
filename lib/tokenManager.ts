@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 
-const USAGE_FILE = path.join(process.cwd(), 'token-usage.json');
+// Use /tmp for Vercel compatibility (ephemeral but prevents EROFS crash)
+const USAGE_FILE = process.env.NODE_ENV === 'production'
+    ? path.join(os.tmpdir(), 'token-usage.json')
+    : path.join(process.cwd(), 'token-usage.json');
 const DAILY_LIMIT = 50000;
 
 interface UsageData {

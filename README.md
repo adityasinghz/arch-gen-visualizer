@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔮 Arch-Gen Visualizer
 
-## Getting Started
+> **Turn Code into Beautiful Architecture Diagrams instantly.**
 
-First, run the development server:
+Arch-Gen is an AI-powered visualization tool that analyzes your source code (Python, C++, Java, etc.) and generates professional Flowcharts and Class Diagrams using Mermaid.js.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![UI Preview](https://via.placeholder.com/800x450.png?text=Holographic+UI+Preview)
+*(Replace with actual screenshot if available)*
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **🔮 Holographic Interface:** A sleek, deep-space aesthetic featuring an animated **Aurora Background**, Glassmorphism panels, and Neon accents.
+- **🧠 Smart Auto-Detection:** No need to select a language. Just paste your code, and the AI identifies syntax automatically (supports Python, JS, C++, Java, Go, and more).
+- **🛡️ Strict Validation:** The engine rejects invalid code or gibberish with clear error nodes, ensuring no hallucinations.
+- **⚡ JSON-Based Engine:** Uses a deterministic JSON-to-Mermaid generation strategy to guarantee **100% valid syntax** (no more lexical errors).
+- **🔍 Interactive Viewer:** Zoom, Pan, and Reset your diagrams with a smooth, intuitive control set.
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
+- **Language:** TypeScript
+- **AI Model:** OpenAI `gpt-4o-mini`
+- **Visualization:** [Mermaid.js](https://mermaid.js.org/)
+- **UI Library:** Material UI (MUI v5)
+- **Editor:** Monaco Editor
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Getting Started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Prerequisites
 
-## Deploy on Vercel
+- Node.js 18+
+- An OpenAI API Key
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/adityasinghz/arch-gen-visualizer.git
+    cd arch-gen-visualizer
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Setup Environment:**
+    Create a `.env.local` file in the root directory:
+    ```bash
+    OPENAI_API_KEY=sk-your-api-key-here
+    ```
+
+4.  **Run the application:**
+    ```bash
+    npm run dev
+    ```
+
+5.  **Open in Browser:**
+    Navigate to [http://localhost:3000](http://localhost:3000).
+
+## 💡 How to Use
+
+1.  **Paste Code:** Copy function or class code from your IDE.
+2.  **Visualize:** Click the **"Visualize"** button. The AI analyzes the logic.
+3.  **Explore:** Use the mouse wheel to zoom/pan.
+4.  **Export:** Download the diagram as an SVG.
+
+## 📄 License
+
+MIT License. Designed by Aditya Singh.

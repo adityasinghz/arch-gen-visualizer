@@ -17,6 +17,14 @@ Arch-Gen is an AI-powered visualization tool that analyzes your source code (Pyt
 - **⚡ JSON-Based Engine:** Uses a deterministic JSON-to-Mermaid generation strategy to guarantee **100% valid syntax** (no more lexical errors).
 - **🔍 Interactive Viewer:** Zoom, Pan, and Reset your diagrams with a smooth, intuitive control set.
 
+## 💸 Cost Control
+
+To prevent excessive API usage, the system enforces a strict daily limit:
+- **Daily Cap:** 50,000 tokens.
+- **Tracking:** Usage is stored locally in `token-usage.json`.
+- **Alerts:** A visual Snackbar warning appears if the limit is reached.
+- **Reset:** Counters reset automatically at midnight.
+
 ## 🛠️ Tech Stack
 
 - **Framework:** [Next.js 14](https://nextjs.org/) (App Router)

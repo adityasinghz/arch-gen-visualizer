@@ -2,6 +2,7 @@ import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 import { FLOWCHART_PROMPT, CLASS_DIAGRAM_PROMPT, extractComplexity, cleanMermaidCode, JSON_FLOWCHART_PROMPT, constructMermaidFromJSON } from '@/lib/prompts';
 import { generateFlowchartLocally, generateClassDiagramLocally } from '@/lib/localGenerator';
+import { checkTokenLimit, trackUsage } from '@/lib/tokenManager';
 import type { VisualizeRequest, VisualizeResponse } from '@/types';
 
 // Initialize OpenAI client
@@ -36,6 +37,16 @@ export async function POST(req: Request) {
             } as VisualizeResponse);
         }
 
+        // Check Token Limit
+        const limitStatus = checkTokenLimit();
+        if (!limitStatus.allowed) {
+            console.warn('Daily token limit reached');
+            return NextResponse.json(
+                { error: `Daily token limit reached. Resets on ${limitStatus.resetDate}.` } as VisualizeResponse,
+                { status: 429 }
+            );
+        }
+
         // Select appropriate prompt based on diagram type
         let prompt;
         if (diagramType === 'class') {
@@ -67,6 +78,11 @@ export async function POST(req: Request) {
                     temperature: 0.1,
                     max_tokens: 2048,
                 });
+
+                // Track usage
+                if (completion.usage) {
+                    trackUsage(completion.usage.total_tokens);
+                }
 
                 const generatedText = completion.choices[0]?.message?.content || '';
                 let finalMermaid = '';

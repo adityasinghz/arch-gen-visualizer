@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import mermaid from 'mermaid';
-import { Box, Button, Paper, CircularProgress, Typography, ToggleButtonGroup, ToggleButton, Stack, Alert } from '@mui/material';
+import { Box, Button, Paper, CircularProgress, Typography, ToggleButtonGroup, ToggleButton, Stack, Alert, Snackbar } from '@mui/material';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import DownloadIcon from '@mui/icons-material/Download';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
@@ -42,6 +42,8 @@ const Visualizer: React.FC<VisualizerProps> = ({ codeSnippet }) => {
     const [diagramType, setDiagramType] = useState<DiagramType>('flowchart');
     const [complexity, setComplexity] = useState<number | null>(null);
     const [renderKey, setRenderKey] = useState(0);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
     const mermaidRef = useRef<HTMLDivElement>(null);
 
     const generateDiagram = async () => {
@@ -66,8 +68,16 @@ const Visualizer: React.FC<VisualizerProps> = ({ codeSnippet }) => {
 
             const data: VisualizeResponse = await response.json();
 
+            if (response.status === 429) {
+                setSnackbarMessage(data.error || 'Daily limit exceeded');
+                setSnackbarOpen(true);
+                setError(data.error || 'Daily limit exceeded'); // Also show inline
+                return;
+            }
+
             if (data.error) {
                 setError(data.error);
+                return; // Stop processing
             }
 
             if (data.result) {
@@ -317,6 +327,17 @@ const Visualizer: React.FC<VisualizerProps> = ({ codeSnippet }) => {
                     </Typography>
                 </Box>
             )}
+
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={() => setSnackbarOpen(false)}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert onClose={() => setSnackbarOpen(false)} severity="warning" sx={{ width: '100%', fontSize: '1.1rem' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Paper>
     );
 };

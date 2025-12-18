@@ -4,8 +4,6 @@
 
 Arch-Gen is an AI-powered visualization tool that analyzes your source code (Python, C++, Java, etc.) and generates professional Flowcharts and Class Diagrams using Mermaid.js.
 
-![UI Preview](https://via.placeholder.com/800x450.png?text=Holographic+UI+Preview)
-
 ---
 
 ## ✨ Features
